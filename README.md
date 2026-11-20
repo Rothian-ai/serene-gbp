@@ -1,13 +1,13 @@
 # serene-gbp
 
-Shares each insight from serenebay.ae/insights on Serene's Google Business
+Shares each insight from serenebay.ae/insights on Serene Bay's Google Business
 Profile, with the insight's own image, after a person approves it. It is a copy
 of `Rothian-ai/rothian-gbp`, adapted for Serene; the two run separately, with
 their own environment, routine and credentials, and cannot post to each
 other's profile.
 
 ```
-Weekly routine                        You                       Weekly routine (next run)
+Routine (twice a week)                You                       Routine (next run)
 finds the next insight                look at the post and      posts it to the profile
 writes hook, summary and CTA          its image in the PR,      with the image, and
 fetches the insight's own image       then merge                tells Teams

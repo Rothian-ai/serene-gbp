@@ -1,6 +1,6 @@
 ---
 name: gbp-insight-post
-description: Write the caption (hook, summary, call to action) for a Serene insight's Business Profile post, fetch the insight's own image, and look at it before the pull request. Use whenever a post file in posts/ has been prepared.
+description: Write the caption (hook, summary, call to action) for a Serene Bay insight's Business Profile post, fetch the insight's own image, and look at it before the pull request. Use whenever a post file in posts/ has been prepared.
 ---
 
 # The caption and image for an insight post
@@ -42,9 +42,16 @@ and description, then sharpen them.
 
 Rules:
 
-- Serene's voice as it reads on serenebay.ae: calm, warm and clear. No hype,
-  no exclamation marks, no emoji, no hashtags, no links, phone numbers or
-  email addresses (`check` rejects these).
+- Serene Bay's voice as it reads on serenebay.ae: an independent guide for
+  people buying off-plan property in Dubai and Abu Dhabi, many of them from
+  overseas. Calm, exact and on the buyer's side, with **no urgency**: never
+  "don't miss out", "limited units", "act now" or anything that pressures a
+  purchase. British spelling, and "per cent" in words as the site writes it.
+- No hype, no exclamation marks, no emoji, no hashtags, no links, phone
+  numbers or email addresses (`check` rejects these).
+- Facts, figures, laws and authorities (DLD, RERA, Oqood, escrow) exactly as
+  the insight gives them. No promises of returns, prices or yields, and
+  nothing that reads as personal legal or financial advice.
 - No relative dates such as "this month" or "next week": the post may go out
   days or weeks after the article was written. Name the month or leave the
   time out.
@@ -63,10 +70,10 @@ It downloads `source_image`, converts it to a JPG (at most 2048 pixels on the
 long side) and writes `posts/images/<slug>.jpg`. Then open the file and look
 at it:
 
-- Is it the insight's real image, not a site logo, a placeholder or a generic
-  social-sharing banner? If the page's `og:image` is a site-wide default,
-  find the article's own cover image on the page, put its address in
-  `source_image` and run `image` again.
+- Is it the insight's real image, not a site logo or a placeholder? Some
+  older insights share one of a few images (for example `ins-escrow.jpg`).
+  That is fine: it is what the page itself shows. Say in the pull request
+  body that the image is shared with other insights, so the reviewer knows.
 - Is it sharp, the right way up and not cut off badly? Business Profile may
   trim the sides, so the subject should not sit at the very edge.
 - Does any text on it carry a price, phone number or offer that might be out

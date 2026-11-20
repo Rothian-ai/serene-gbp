@@ -1,6 +1,6 @@
 # Routine
 
-One weekly routine does both halves of the job:
+One routine, run twice a week, does both halves of the job:
 
 1. **Publish** any approved post that is not on the profile yet (one per run).
 2. **Prepare** the next serenebay.ae insight: write a caption (a hook, a short
@@ -11,9 +11,12 @@ Merging the pull request is the approval. It also puts the image on `main`,
 which is where Google fetches it from, so a post can only go out after a person
 has merged it.
 
-**Weekly, not daily**, while Serene's profile is new: Google watches new
-profiles more closely, and a steady, modest rhythm of real content is the
-safest. Move to a shorter interval later if you want.
+**Twice a week, not daily**, while Serene Bay's profile is new: Google
+watches new profiles more closely, and a steady, modest rhythm of real content
+is the safest. Weekly would be gentler still, but the site publishes about one
+insight a week, so a weekly routine working through the back catalogue (14
+insights in November 2026) would never catch up. Move to daily later if you
+want.
 
 **This repository has to be public**: Google takes a post's image only as a
 public URL, and the images are served from `main` through
@@ -30,17 +33,17 @@ credentials post to Rothian's profile.
 ```
 GBP_ACCOUNT_ID=<from gbp_auth.py, signed in as Serene>
 GBP_LOCATION_ID=<from gbp_auth.py, Serene's verified profile>
-GBP_SITE_NAME=Serene
+GBP_SITE_NAME=Serene Bay
 GBP_SITEMAP_URL=https://www.serenebay.ae/sitemap.xml
 GBP_PATH_PREFIX=/insights/
 GBP_LINK_PREFIX=https://www.serenebay.ae/
 GBP_IMAGE_BASE_URL=https://raw.githubusercontent.com/Rothian-ai/serene-gbp/main/posts/images/
-GBP_POST_SINCE=2000-01-01
+GBP_POST_SINCE=2026-05-22
 GBP_DRY_RUN=true
 ```
 
-- `GBP_POST_SINCE=2000-01-01` takes every insight on the site, from the first
-  one onwards, oldest first, one per run.
+- `GBP_POST_SINCE=2026-05-22` is the date of the first insight on the site, so
+  every insight is shared, oldest first, one per run.
 - `GBP_DRY_RUN=true` until the first dry run has been checked, then `false`.
   While it is `true`, nothing is posted to Google, but pull requests are still
   prepared, so you can review the first posts.
@@ -57,8 +60,8 @@ POWERAUTOMATE_WEBHOOK_URL=<same as Rothian's>
 No OpenAI key: Serene's images are not generated.
 
 **Network policy:** allow `oauth2.googleapis.com`, `mybusiness.googleapis.com`,
-`www.serenebay.ae`, the host that serves the insights' images if it is not
-`www.serenebay.ae`, `raw.githubusercontent.com`, the Teams webhook's host, and
+`www.serenebay.ae` (it also serves the insights' images),
+`raw.githubusercontent.com`, the Teams webhook's host, and
 PyPI if not already allowed.
 
 **Setup script:**
@@ -79,13 +82,13 @@ different Python than `python3`.
 
 - **Name:** Serene: Business Profile posts
 - **Repository:** `Rothian-ai/serene-gbp`
-- **Trigger:** weekly, for example Tuesday 10:07 local time
+- **Trigger:** twice a week, for example Tuesday and Friday at 10:07 local time
 - **Environment:** `Serene GBP`
 
 Instructions:
 
 ```
-Share Serene's insights on its Google Business Profile: publish what has been
+Share Serene Bay's insights on its Google Business Profile: publish what has been
 approved, then prepare the next insight for approval. A Business Profile post
 is public immediately, so gbp_post.py is the only thing that posts: never call
 the Business Profile API yourself, never merge a pull request, and never post

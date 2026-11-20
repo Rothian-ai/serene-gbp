@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Share each new serenebay.ae insight on Serene's Google Business Profile, with
+"""Share each new serenebay.ae insight on Serene Bay's Google Business Profile, with
 the insight's own image, after a person approves it.
 
     python3 gbp_post.py prepare [--limit 1]            # draft a post for the next new insight
@@ -76,7 +76,7 @@ TOKEN_URL = "https://oauth2.googleapis.com/token"
 POSTS_API = "https://mybusiness.googleapis.com/v4/accounts/{account}/locations/{location}/localPosts"
 
 WEBHOOK = os.environ.get("POWERAUTOMATE_WEBHOOK_URL", "").strip()
-SITE_NAME = os.environ.get("GBP_SITE_NAME", "Serene").strip() or "Serene"
+SITE_NAME = os.environ.get("GBP_SITE_NAME", "Serene Bay").strip() or "Serene Bay"
 SITEMAP = os.environ.get("GBP_SITEMAP_URL", "https://www.serenebay.ae/sitemap.xml").strip()
 PATH_PREFIX = os.environ.get("GBP_PATH_PREFIX", "/insights/").strip() or "/insights/"
 # Every post's button has to point at the business's own site.
@@ -207,6 +207,19 @@ def cover_image(page: str, page_url: str) -> str:
     return urljoin(page_url, found) if found else ""
 
 
+def clean_title(title: str) -> str:
+    """The article's own title: without a trailing " · Serene Bay" or
+    " | Serene Bay" and without quote marks wrapped round the whole title."""
+    for sep in (" · ", " | "):
+        if sep in title:
+            title = title.rsplit(sep, 1)[0]
+            break
+    title = title.strip()
+    if len(title) > 1 and title[0] in "\"“" and title[-1] in "\"”":
+        title = title[1:-1].strip()
+    return title
+
+
 def site_insights(since: str) -> list[dict]:
     """Insights listed in the sitemap under PATH_PREFIX, read from the live site,
     oldest first. A page that does not answer 200 or carries no publish date is
@@ -235,9 +248,7 @@ def site_insights(since: str) -> list[dict]:
         date = published(page.text)
         if not date or date < since:
             continue
-        title = meta(page.text, "og:title")
-        # og:title usually ends " | Site name"; the post needs the article's own title.
-        title = title.rsplit(" | ", 1)[0] if " | " in title else title
+        title = clean_title(meta(page.text, "og:title"))
         found.append({"slug": path.rstrip("/").rsplit("/", 1)[-1], "url": url, "date": date,
                       "title": title,
                       "description": meta(page.text, "og:description")
@@ -556,7 +567,7 @@ def cmd_notify_pr(args) -> None:
     message.update(teams_card(
         f"{SITE_NAME} Business Profile post ready for review",
         [("Insight", post.get("cta_url", "")),
-         ("Goes live", "at the first weekly run after merging"),
+         ("Goes live", "at the next run after merging"),
          ("Image", "see Files changed in the pull request")],
         body=post.get("text", ""),
         link=("Review the post and its image", args.pr_url)))
